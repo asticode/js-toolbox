@@ -12,6 +12,8 @@ asticode.notifier = {
         document.body.innerHTML = `<div class="astinotifier" id="astinotifier"></div>` + document.body.innerHTML
     },
     notify: function(type, message) {
+        const wrapper = document.createElement("div");
+        wrapper.className = "astinotifier-wrapper";
         const item = document.createElement("div");
         item.className = "astinotifier-item " + type;
         const label = document.createElement("div");
@@ -21,11 +23,12 @@ asticode.notifier = {
         close.className = "astinotifier-close";
         close.innerHTML = `<i class="fa fa-close"></i>`;
         close.onclick = function() {
-            item.remove();
+            wrapper.remove();
         };
         item.appendChild(label);
         item.appendChild(close);
-        document.getElementById("astinotifier").prepend(item);
+        wrapper.appendChild(item);
+        document.getElementById("astinotifier").prepend(wrapper);
         setTimeout(function() {
             close.click();
         }, 5000);
