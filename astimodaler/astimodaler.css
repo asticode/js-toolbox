@@ -39,7 +39,7 @@
     padding: 2em;
     position: relative;
 }
-#astimodaler-close {
+.astimodaler-close {
     cursor: pointer;
     position: absolute;
     right: 0.65em;
