@@ -1,4 +1,4 @@
-`js-toolbox` is a set of components and methods to ease developments in JS and avoid duplication.
+`js-toolbox` is a set of components and methods to ease HTML/CSS/JS developments.
 
 # Astiloader
 
@@ -20,6 +20,32 @@ When you want to show the loader call the `.show()` method, when you want to hid
 ```javascript
 asticode.loader.show()
 asticode.loader.hide()
+```
+
+It requires [fontAwesome](http://fontawesome.io).
+
+# Astimodaler
+
+In the `<head>` of your HTML, reference the location of both `.css` and `.js` files:
+
+```html
+<link rel="stylesheet" href="path/to/astimodaler.css"/>
+<script src="path/to/astimodaler.js"></script>
+```
+
+Then call the `.init()` method:
+
+```javascript
+asticode.astimodaler.init()
+```
+
+Here are the available methods:
+
+```javascript
+asticode.astimodaler.setContent(content) // Set content of the modal. Must be a valid Node.
+asticode.astimodaler.show() // Shows the modal
+asticode.astimodaler.hide() // Hides the modal
+asticode.astimodaler.close() // Executes the asticode.astimodaler.onclose closure if exists, then hides the modal
 ```
 
 It requires [fontAwesome](http://fontawesome.io).

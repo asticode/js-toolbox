@@ -3,7 +3,7 @@ if (typeof asticode === "undefined") {
 }
 asticode.modaler = {
     close: function() {
-        if (typeof asticode.modaler.onclose !== "undefined" && asticode.modaler.onclose != null) {
+        if (typeof asticode.modaler.onclose !== "undefined" && asticode.modaler.onclose !== null) {
             asticode.modaler.onclose();
         }
         asticode.modaler.hide();
