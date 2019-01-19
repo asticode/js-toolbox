@@ -2,21 +2,12 @@ if (typeof asticode === "undefined") {
     var asticode = {}
 }
 asticode.tools = {
-    getParameterByName(name, url) {
-        if (!url) url = window.location.href
-        name = name.replace(/[\[\]]/g, "\\$&")
-        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-            results = regex.exec(url)
-        if (!results) return null
-        if (!results[2]) return ''
-        return decodeURIComponent(results[2].replace(/\+/g, " "))
-    },
     sendHttp: function(options) {
         const req = new XMLHttpRequest()
         req.onreadystatechange = function() {
             if (this.readyState === XMLHttpRequest.DONE) {
                 // Parse data
-                let data = {responseText: this.responseText, err: null}
+                let data = {responseText: this.responseText, err: null, status: this.status}
                 if (this.responseText.length > 0 && this.getResponseHeader("content-type") === "application/json") {
                     try {
                         data.responseJSON = JSON.parse(this.responseText)
@@ -33,7 +24,8 @@ asticode.tools = {
                 }
             }
         }
-        req.open(options.method, options.url, true)
+        const query = Object.assign({}, options.query)
+        req.open(options.method, options.url + "?" + Object.keys(query).map(k => encodeURIComponent(k) + '=' + encodeURIComponent(query[k])).join('&'), true)
         req.send(options.payload)
     },
     appendSorted: function(rootSelector, data, map) {
