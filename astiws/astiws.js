@@ -23,7 +23,8 @@ asticode.ws = {
         }
         okRequest.success = function() {
             // Init websocket
-            self.s = new WebSocket(options.url)
+            const query = Object.assign({}, options.query)
+            self.s = new WebSocket(options.url + "?" + Object.keys(query).map(k => encodeURIComponent(k) + '=' + encodeURIComponent(query[k])).join('&'))
 
             // Declare functions
             let intervalPing
