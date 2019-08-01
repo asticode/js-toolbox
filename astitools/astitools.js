@@ -8,7 +8,7 @@ asticode.tools = {
             if (this.readyState === XMLHttpRequest.DONE) {
                 // Parse data
                 let data = {responseText: this.responseText, err: null, status: this.status}
-                if (this.responseText.length > 0 && this.getResponseHeader("content-type") === "application/json") {
+                if (this.responseText.length > 0 && this.getResponseHeader("content-type").indexOf("application/json") > -1) {
                     try {
                         data.responseJSON = JSON.parse(this.responseText)
                     } catch (e) {
@@ -104,5 +104,17 @@ asticode.tools = {
             default:
                 return false
         }
+    },
+    scrollDownTo: function(y, maxDuration) {
+        if (typeof maxDuration === "undefined") maxDuration = 500
+        const intervalDuration = 5
+        const intervalScroll = (y - window.scrollY) / (maxDuration / intervalDuration)
+        const i = setInterval(function() {
+            if (window.scrollY >= y) {
+                clearInterval(i)
+                return
+            }
+            window.scrollTo(0, window.scrollY + intervalScroll)
+        }, intervalDuration)
     }
 }
