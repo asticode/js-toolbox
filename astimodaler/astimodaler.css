@@ -43,7 +43,61 @@
 }
 .astimodaler-close {
     cursor: pointer;
+    padding: 0.65em;
     position: absolute;
-    right: 0.65em;
-    top: 0.65em;
+    right: 0;
+    top: 0;
+    width: 2.4em;
+}
+#astimodaler-content {
+    text-align: left;
+}
+.astimodaler-title {
+    border-bottom: solid 1px #aaa;
+    font-size: 1.2em;
+    margin-bottom: 1em;
+}
+.astimodaler-error {
+    background-color: #f2dede;
+    border: solid 1px #dca7a7;
+    border-radius: 0.5em;
+    color: #a94442;
+    display: none;
+    margin-bottom: 1em;
+    padding: 1em;
+    text-align: center;
+}
+.astimodaler-label {
+    margin-bottom: 0.3em;
+}
+.astimodaler-required {
+    color: red;
+}
+.astimodaler-field-text, .astimodaler-field-textarea {
+    border: solid 1px #ccc;
+    border-radius: 0.5em;
+    box-shadow: none;
+    font: inherit;
+    margin-bottom: 0.7em;
+    padding: 0.5em 0.7em;
+    width: 100%;
+}
+.astimodaler-field-textarea {
+    height: 15em;
+}
+.astimodaler-field-text:focus {
+    outline: none;
+}
+.astimodaler-field-text, .astimodaler-field-textarea {
+    display: block;
+}
+.astimodaler-field-submit {
+    border-radius: 0.5em;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 1em;
+    padding: 0.7em 1em;
+    text-align: center;
+    vertical-align: middle;
+    width: 100%;
 }
