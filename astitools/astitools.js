@@ -116,5 +116,8 @@ asticode.tools = {
             }
             window.scrollTo(0, window.scrollY + intervalScroll)
         }, intervalDuration)
+    },
+    isEmail: function(text) {
+        return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(text)
     }
 }
