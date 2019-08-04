@@ -22,8 +22,6 @@ asticode.loader.show()
 asticode.loader.hide()
 ```
 
-It requires [fontAwesome](http://fontawesome.io).
-
 # Astimodaler
 
 In the `<head>` of your HTML, reference the location of both `.css` and `.js` files:
@@ -36,19 +34,56 @@ In the `<head>` of your HTML, reference the location of both `.css` and `.js` fi
 Then call the `.init()` method:
 
 ```javascript
-asticode.astimodaler.init()
+asticode.modaler.init()
 ```
 
 Here are the available methods:
 
 ```javascript
-asticode.astimodaler.setContent(content) // Set content of the modal. Must be a valid Node.
-asticode.astimodaler.show() // Shows the modal
-asticode.astimodaler.hide() // Hides the modal
-asticode.astimodaler.close() // Executes the asticode.astimodaler.onclose closure if exists, then hides the modal
+asticode.modaler.setContent(content) // Set content of the modal. Must be a valid Node.
+asticode.modaler.show() // Shows the modal
+asticode.modaler.hide() // Hides the modal
+asticode.modaler.close() // Executes the asticode.modaler.onclose closure if exists, then hides the modal
+asticode.modaler.newForm() // Create a form
 ```
 
-It requires [fontAwesome](http://fontawesome.io).
+Here's an example of how to create a form:
+
+```javascript
+let f = asticode.modaler.newForm()
+
+// Add title
+f.addTitle("My Title")
+
+// Add error
+f.addError()
+
+// Add first field
+f.addField({
+    label: "First field",
+    name: "first-field",
+    required: true,
+    type: "email",
+})
+
+// Add second field
+f.addField({
+    label: "Second field",
+    name: "second-field",
+    required: true,
+    type: "textarea",
+})
+
+// Add button
+f.addField({
+    className: "btn-success",
+    label: "Send",
+    success: function(fields) {
+        // TODO Your logic
+    },
+    type: "submit",
+})
+```
 
 # Astinotifier
 
@@ -73,5 +108,3 @@ asticode.notifier.info("this is an info");
 asticode.notifier.success("this is a success");
 asticode.notifier.warning("this is a warning");
 ```
-
-It requires [fontAwesome](http://fontawesome.io).
