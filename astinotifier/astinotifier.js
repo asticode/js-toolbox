@@ -2,6 +2,7 @@ if (typeof asticode === "undefined") {
     var asticode = {};
 }
 asticode.notifier = {
+    scriptDir: document.currentScript.src.match(/.*\//),
     error: function(message) {
         this.notify("error", message);
     },
@@ -21,7 +22,7 @@ asticode.notifier = {
         label.innerHTML = message;
         const close = document.createElement("div");
         close.className = "astinotifier-close";
-        close.innerHTML = `<i class="fa fa-close"></i>`;
+        close.innerHTML = `<img src="` + asticode.notifier.scriptDir + `/cross.png"/>`;
         close.onclick = function() {
             wrapper.remove();
         };
