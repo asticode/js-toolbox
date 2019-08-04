@@ -32,3 +32,17 @@
     vertical-align: middle;
     width: 100%;
 }
+@keyframes asticode-spin {
+    0% {
+        -webkit-transform:rotate(0deg);
+        transform:rotate(0deg)
+    }
+    to {
+        -webkit-transform:rotate(1turn);
+        transform:rotate(1turn)
+    }
+}
+.astiloader-content img {
+    animation: asticode-spin 2s linear infinite;
+    width: 5em;
+}
