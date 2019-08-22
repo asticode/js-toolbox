@@ -40,18 +40,28 @@ asticode.ws = {
             }
             self.s.onopen = function() {
                 self.showOfflineMessage = true
-                if (typeof options.pingPeriod !== "undefined") intervalPing = setInterval(function() { self.send("ping") }, options.pingPeriod / 1e6)
+                if (typeof options.pingPeriod !== "undefined") {
+                    let pingFunc = options.pingFunc
+                    if (typeof pingFunc === "undefined") {
+                        pingFunc = function(self) { self.send("ping") }
+                    }
+                    intervalPing = setInterval(function() { pingFunc(self) }, options.pingPeriod / 1e6)
+                }
                 if (typeof options.open !== "undefined") options.open()
             }
             self.s.onmessage = function(event) {
                 let data = JSON.parse(event.data)
                 if (typeof options.message !== "undefined") options.message(data.event_name, data.payload)
+                if (typeof options.messageRaw !== "undefined") options.messageRaw(data)
             }
         }
 
         asticode.tools.sendHttp(okRequest)
     },
     send: function(event_name, payload) {
-        this.s.send(JSON.stringify({event_name: event_name, payload: payload}));
+        this.sendJSON({event_name: event_name, payload: payload})
+    },
+    sendJSON: function(data) {
+        this.s.send(JSON.stringify(data))
     }
 }
