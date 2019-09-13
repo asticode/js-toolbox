@@ -108,3 +108,31 @@ asticode.notifier.info("this is an info");
 asticode.notifier.success("this is a success");
 asticode.notifier.warning("this is a warning");
 ```
+
+# Astiprogresser
+
+In the `<head>` of your HTML, reference the location of both `.css` and `.js` files:
+
+```html
+<link rel="stylesheet" href="path/to/astiprogresser.css"/>
+<script src="path/to/astiprogresser.js"></script>
+```
+
+Then call the `.new()` method with the proper options:
+
+```javascript
+let p = asticode.progresser.new({
+    error: function(message) { console.error(message) },
+    root: yourRootNode,
+})
+```
+
+Call the `.update()` method to draw the progresser and every time progress has to be updated:
+
+```javascript
+p.update({
+    current_step: "2",
+    progress: 56.2,
+    steps: ["1", "2", "3", "4"]
+})
+```
