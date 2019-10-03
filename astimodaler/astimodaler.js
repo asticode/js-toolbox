@@ -118,7 +118,7 @@ asticode.modaler = {
                     case "text":
                     case "textarea":
                         // Create label
-                        let l = document.createElement("label")
+                        let l = document.createElement("div")
                         l.className = "astimodaler-label"
                         l.innerHTML = options.label + (typeof options.required !== "undefined" && options.required ? "<span class='astimodaler-required'>*</span>" : "")
                         this.node.appendChild(l)
