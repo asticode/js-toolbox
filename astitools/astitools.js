@@ -114,7 +114,7 @@ asticode.tools = {
                 clearInterval(i)
                 return
             }
-            window.scrollTo(0, window.scrollY + intervalScroll)
+            window.scrollTo(0, window.scrollY + Math.min(intervalScroll, y-window.scrollY))
         }, intervalDuration)
     },
     isEmail: function(text) {
