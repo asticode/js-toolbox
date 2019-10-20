@@ -37,7 +37,8 @@ asticode.modaler = {
         document.getElementById("astimodaler").style.display = "block";
     },
     newForm: function() {
-        return {
+        // Create form
+        let f = {
             fields: [],
             node: document.createElement("div"),
             addTitle: function(text) {
@@ -60,9 +61,11 @@ asticode.modaler = {
                 this.error.style.display = "none"
             },
             addField: function(options) {
-                let that = this
                 switch (options.type) {
                     case "submit":
+                        // Store success
+                        this.success = options.success
+
                         // Create button
                         let b = document.createElement("div")
                         b.className = "astimodaler-field-submit" + (typeof options.className !== "undefined" ? " " + options.className : "")
@@ -71,48 +74,8 @@ asticode.modaler = {
 
                         // Handle click
                         b.addEventListener("click", function() {
-                            // Hide error
-                            that.hideError()
-
-                            // Loop through fields
-                            let fs = {}
-                            for (let i = 0; i < that.fields.length; i++) {
-                                // Get field
-                                const f = that.fields[i]
-                                
-                                // Get value
-                                let v
-                                switch (f.options.type) {
-                                    case "email":
-                                    case "text":
-                                    case "textarea":
-                                        v = f.node.value
-                                        break
-                                    case "select":
-                                        v = f.node.options[f.node.selectedIndex].value
-                                        break
-                                }
-
-                                // Check required
-                                if (typeof f.options.required !== "undefined" && f.options.required && v === "") {
-                                    that.showError('Field "' + f.options.label + '" is required')
-                                    return
-                                }
-                                
-                                // Check email
-                                if (f.options.type === "email" && !asticode.tools.isEmail(v)) {
-                                    that.showError(v + " is not a valid email")
-                                    return
-                                }
-
-                                // Append field
-                                fs[f.options.name] = v
-                            }
-
-                            // Success callback
-                            options.success(fs)
-
-                        })
+                            this.submit()
+                        }.bind(this))
                         break
                     case "email":
                     case "select":
@@ -160,6 +123,49 @@ asticode.modaler = {
                         break
                 }
             },
+            submit: function() {
+                // Hide error
+                this.hideError()
+
+                // Loop through fields
+                let fs = {}
+                for (let i = 0; i < this.fields.length; i++) {
+                    // Get field
+                    const f = this.fields[i]
+
+                    // Get value
+                    let v
+                    switch (f.options.type) {
+                        case "email":
+                        case "text":
+                        case "textarea":
+                            v = f.node.value
+                            break
+                        case "select":
+                            v = f.node.options[f.node.selectedIndex].value
+                            break
+                    }
+
+                    // Check required
+                    if (typeof f.options.required !== "undefined" && f.options.required && v === "") {
+                        this.showError('Field "' + f.options.label + '" is required')
+                        return
+                    }
+
+                    // Check email
+                    if (f.options.type === "email" && !asticode.tools.isEmail(v)) {
+                        this.showError(v + " is not a valid email")
+                        return
+                    }
+
+                    // Append field
+                    fs[f.options.name] = v
+                }
+
+                // Success callback
+                this.success(fs)
+
+            },
             focus: function() {
                 // No fields
                 if (this.fields.length === 0) { return }
@@ -168,5 +174,13 @@ asticode.modaler = {
                 this.fields[0].node.focus()
             },
         }
+
+        // Submit on Enter
+        f.node.addEventListener("keyup", function(e) {
+            if (e.key === "Enter") {
+                f.submit()
+            }
+        })
+        return f
     }
 };
