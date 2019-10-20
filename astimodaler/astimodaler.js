@@ -75,7 +75,7 @@ asticode.modaler = {
                             that.hideError()
 
                             // Loop through fields
-                            let fs = []
+                            let fs = {}
                             for (let i = 0; i < that.fields.length; i++) {
                                 // Get field
                                 const f = that.fields[i]
@@ -87,6 +87,9 @@ asticode.modaler = {
                                     case "text":
                                     case "textarea":
                                         v = f.node.value
+                                        break
+                                    case "select":
+                                        v = f.node.options[f.node.selectedIndex].value
                                         break
                                 }
 
@@ -103,10 +106,7 @@ asticode.modaler = {
                                 }
 
                                 // Append field
-                                fs.push({
-                                    name: f.options.name,
-                                    value: v,
-                                })
+                                fs[f.options.name] = v
                             }
 
                             // Success callback
@@ -115,6 +115,7 @@ asticode.modaler = {
                         })
                         break
                     case "email":
+                    case "select":
                     case "text":
                     case "textarea":
                         // Create label
@@ -136,6 +137,18 @@ asticode.modaler = {
                                 i = document.createElement("textarea")
                                 i.className = "astimodaler-field-textarea"
                                 break
+                            case "select":
+                                i = document.createElement("select")
+                                i.className = "astimodaler-field-select"
+                                for (let k in options.values) {
+                                    if (Object.prototype.hasOwnProperty.call(options.values, k)) {
+                                        let o = document.createElement("option")
+                                        o.value = k
+                                        o.innerText = options.values[k]
+                                        i.appendChild(o)
+                                    }
+                                }
+                                break
                         }
 
                         // Append field
@@ -146,6 +159,13 @@ asticode.modaler = {
                         })
                         break
                 }
+            },
+            focus: function() {
+                // No fields
+                if (this.fields.length === 0) { return }
+
+                // Focus first field
+                this.fields[0].node.focus()
             },
         }
     }

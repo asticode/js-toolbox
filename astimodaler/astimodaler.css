@@ -73,6 +73,12 @@
 .astimodaler-required {
     color: red;
 }
+.astimodaler-field-select {
+    border: solid 1px #ccc;
+    font: inherit;
+    margin-bottom: 0.7em;
+    width: 100%;
+}
 .astimodaler-field-text, .astimodaler-field-textarea {
     border: solid 1px #ccc;
     border-radius: 0.5em;
@@ -85,7 +91,7 @@
 .astimodaler-field-textarea {
     height: 15em;
 }
-.astimodaler-field-text:focus {
+.astimodaler-field-text:focus, .astimodaler-field-select:focus {
     outline: none;
 }
 .astimodaler-field-text, .astimodaler-field-textarea {
