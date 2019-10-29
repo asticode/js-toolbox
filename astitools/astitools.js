@@ -107,6 +107,7 @@ asticode.tools = {
     },
     scrollDownTo: function(y, maxDuration) {
         if (typeof maxDuration === "undefined") maxDuration = 500
+        let previousAt = (new Date()).getTime()
         const intervalDuration = 5
         const intervalScroll = (y - window.scrollY) / (maxDuration / intervalDuration)
         const i = setInterval(function() {
@@ -114,7 +115,10 @@ asticode.tools = {
                 clearInterval(i)
                 return
             }
-            window.scrollTo(0, window.scrollY + Math.min(intervalScroll, y-window.scrollY))
+            const now = (new Date()).getTime()
+            const n = Math.floor((now - previousAt) / intervalDuration)
+            previousAt = now
+            window.scrollTo(0, window.scrollY + Math.min(n*intervalScroll, y-window.scrollY))
         }, intervalDuration)
     },
     isEmail: function(text) {
